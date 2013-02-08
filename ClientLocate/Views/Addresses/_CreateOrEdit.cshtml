@@ -1,0 +1,103 @@
+@model ClientLocate.Models.Address
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.AddressLine1)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.AddressLine1)
+    @Html.ValidationMessageFor(model => model.AddressLine1)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.AddressLine2)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.AddressLine2)
+    @Html.ValidationMessageFor(model => model.AddressLine2)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.IsPoBox)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.IsPoBox)
+    @Html.ValidationMessageFor(model => model.IsPoBox)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PoBox)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.PoBox)
+    @Html.ValidationMessageFor(model => model.PoBox)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UnitType)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UnitType)
+    @Html.ValidationMessageFor(model => model.UnitType)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UnitNumber)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UnitNumber)
+    @Html.ValidationMessageFor(model => model.UnitNumber)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.City)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.City)
+    @Html.ValidationMessageFor(model => model.City)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.State)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.State)
+    @Html.ValidationMessageFor(model => model.State)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Zip)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Zip)
+    @Html.ValidationMessageFor(model => model.Zip)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Country)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Country)
+    @Html.ValidationMessageFor(model => model.Country)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.AddressType)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.AddressType)
+    @Html.ValidationMessageFor(model => model.AddressType)
+</div>
+
+<div class="editor-label">
+    Person
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.PersonId, ((IEnumerable<ClientLocate.Models.Person>)ViewBag.PossiblePeople).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.LastName), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.PersonId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.PersonId)
+</div>

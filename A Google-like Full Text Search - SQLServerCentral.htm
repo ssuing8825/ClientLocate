@@ -1,0 +1,970 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0071)http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraph.org/schema/"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/shares.json"></script><script src="./A Google-like Full Text Search - SQLServerCentral_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/counter003.js"></script><link rel="stylesheet" type="text/css" href="./A Google-like Full Text Search - SQLServerCentral_files/counter003.css" media="all"><script type="text/javascript" async="true" src="./A Google-like Full Text Search - SQLServerCentral_files/plusone.js" gapi_processed="true"></script><link rel="stylesheet" type="text/css" href="./A Google-like Full Text Search - SQLServerCentral_files/widget095.css" media="all">
+    
+  
+    <title>A Google-like Full Text Search - SQLServerCentral</title>
+
+
+<meta name="Keywords" content="Microsoft SQL Server, SQL Server, SQL Server 2000, Yukon, SQL Server 7.0, SQL Server DBA">
+<meta name="Description" content="Free Microsoft SQL Server articles, news, forums, scripts and FAQs.">
+<meta name="Robots" content="NOARCHIVE">
+<meta name="GOOGLEBOT" content="NOARCHIVE">
+<meta name="MS.LOCALE" content="en-US">
+
+
+<link rel="stylesheet" href="http://www.sqlservercentral.com/Resources/Public.css?v=12">
+<!--[if lt IE 7]><link rel="stylesheet" href="/Resources/Public-IE6orbelow.css?v=2" /><![endif]-->
+<!--[if gt IE 6]><style type="text/css">.code, pre { overflow-x:scroll; overflow-y:visible; }</style><![endif]-->
+	<script type="text/javascript" async="" src="./A Google-like Full Text Search - SQLServerCentral_files/ga.js"></script><script src="./A Google-like Full Text Search - SQLServerCentral_files/WideImageHandler.js" language="javascript"></script>
+	<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/jquery.corners.js"></script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/jquery.hint.js"></script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/jquery-ui-1.8.11.autocomplete.min.js"></script>
+
+<link type="text/css" href="./A Google-like Full Text Search - SQLServerCentral_files/prettify.css" rel="stylesheet">
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/prettify.js"></script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/lang-sql.js"></script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/lang-vb.js"></script>
+<script type="text/javascript">
+  $(function() {
+    $(".prettyprint br").each(function(index, element) {
+        $(element).replaceWith(document.createTextNode("\n"));
+    });
+    prettyPrint();
+  });
+</script>
+
+	<link rel="SHORTCUT ICON" href="http://www.sqlservercentral.com/favicon.ico">
+<div style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000; " id="_atssh"><iframe id="_atssh491" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0px; left: 0px; top: 0px; " src="./A Google-like Full Text Search - SQLServerCentral_files/sh101.htm"></iframe></div><script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/core041.js"></script></head>
+
+<!--[if lte IE 8]><body class="lte-ie-8" onload="WideImageHandler.AddSupportForWideImages()"><![endif]-->
+<!--[if gt IE 8]><!--><body onload="WideImageHandler.AddSupportForWideImages()"><div id="cboxOverlay" style="display: none; "></div><div id="colorbox" style="padding-bottom: 0px; padding-right: 0px; display: none; " class=""><div id="cboxWrapper" style=""><div id="false" style=""><div id="cboxTopLeft" style="float: left; "></div><div id="cboxTopCenter" style="float: left; "></div><div id="cboxTopRight" style="float: left; "></div></div><div id="false" style="clear: left; "><div id="cboxMiddleLeft" style="float: left; "></div><div id="cboxContent" style="float: left; "><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; " class=""></div><div id="cboxLoadingOverlay" style="" class=""></div><div id="cboxLoadingGraphic" style="" class=""></div><div id="cboxTitle" style="" class=""></div><div id="cboxCurrent" style="" class=""></div><div id="cboxNext" style="" class=""></div><div id="cboxPrevious" style="" class=""></div><div id="cboxSlideshow" style="" class=""></div><div id="cboxClose" style="" class=""></div></div><div id="cboxMiddleRight" style="float: left; "></div></div><div id="false" style="clear: left; "><div id="cboxBottomLeft" style="float: left; "></div><div id="cboxBottomCenter" style="float: left; "></div><div id="cboxBottomRight" style="float: left; "></div></div></div><div id="false" style="position: absolute; width: 9999px; visibility: hidden; display: none; "></div></div><!--<![endif]-->
+
+<!-- The SiteTemplate comments are very important! used by the forums to delimit the content template -->
+<!--SiteTemplateBegins-->
+  <!-- Start of Google Analytics Code -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-90206-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- End of Google Analytics Code -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1072726260;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "wwaYCJy11AIQ9IHC_wM";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<script type="text/javascript" src="./A Google-like Full Text Search - SQLServerCentral_files/conversion.js">
+</script><img height="1" width="1" border="0" src="./A Google-like Full Text Search - SQLServerCentral_files/saved_resource">
+<noscript>
+&lt;div style="display:inline;"&gt;
+&lt;img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1072726260/?label=wwaYCJy11AIQ9IHC_wM&amp;amp;guid=ON&amp;amp;script=0"/&gt;
+&lt;/div&gt;
+</noscript>
+
+	<script src="./A Google-like Full Text Search - SQLServerCentral_files/global.js"></script> <!-- Script needed in forums too -->
+	<script src="./A Google-like Full Text Search - SQLServerCentral_files/jquery.colorbox-min.js"></script>
+	<script src="./A Google-like Full Text Search - SQLServerCentral_files/ssc.js"></script>
+	<script src="./A Google-like Full Text Search - SQLServerCentral_files/Briefcase.js"></script>
+	
+  <div id="corner-peel">
+		<a href="http://monitor.red-gate.com/?utm_source=ssc&utm_medium=peel&utm_content=corner_peel201104&utm_campaign=sqlmonitor">
+      <img src="./A Google-like Full Text Search - SQLServerCentral_files/corner-peel.png" alt="Click here to monitor SSC">
+    </a>
+		<div id="corner-peel-behind"></div>
+	</div>
+    
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" class="MainLayoutContainer">
+		
+
+<tbody><tr>
+	<td colspan="2">
+		<table width="100%" cellpadding="0" cellspacing="0" class="SiteTitleBar">
+			<tbody><tr>
+				<td align="left" valign="bottom"><a href="http://www.sqlservercentral.com/"><img src="./A Google-like Full Text Search - SQLServerCentral_files/sqlservercentral_logo.gif" alt="SQLServerCentral logo" class="SiteLogo"></a></td>
+				<td align="center" valign="middle" height="75">
+					<!-- AdSpeed.com Serving Code 7.9.5 for [Zone] SSCtop 468x60 -->
+
+<script type="text/javascript">var a=new Date();d=document;n=navigator;s=screen;var q='&tz='+a.getTimezoneOffset()/60 +'&ck='+(n.cookieEnabled?'Y':'N') +'&jv='+(n.javaEnabled()?'Y':'N') +'&scr='+s.width+'x'+s.height+'x'+s.colorDepth +'&z='+Math.random() +'&ref='+escape(d.referrer.substr(0,255)) +'&uri='+escape(d.URL.substr(0,255));document.write('<ifr'+'ame width="468" height="60" src="http://g.adspeed.net/ad.php?do=html&zid=15220&wd=468&ht=60&target=_blank'+q+'" frameborder="0" scrolling="no" allowtransparency="true" hspace="0" vspace="0"></ifr'+'ame>');</script><iframe width="468" height="60" src="./A Google-like Full Text Search - SQLServerCentral_files/ad.htm" frameborder="0" scrolling="no" allowtransparency="true" hspace="0" vspace="0"></iframe>
+<noscript>&lt;iframe width="468" height="60" src="http://g.adspeed.net/ad.php?do=html&amp;zid=15220&amp;wd=468&amp;ht=60&amp;target=_blank" frameborder="0" scrolling="no" allowtransparency="true" hspace="0" vspace="0"&gt;&lt;a href="http://g.adspeed.net/ad.php?do=clk&amp;zid=15220&amp;wd=468&amp;ht=60&amp;pair=as" target="_blank"&gt;&lt;img style="border:0px;" src="http://g.adspeed.net/ad.php?do=img&amp;zid=15220&amp;wd=468&amp;ht=60&amp;pair=as" alt="i" width="468" height="60"/&gt;&lt;/a&gt;&lt;/iframe&gt;
+
+</noscript><!-- AdSpeed.com End -->
+				</td>
+				<td align="right" valign="bottom"><a href="http://www.red-gate.com/about/welcomesscvisitors.htm?utm_source=ssc&utm_medium=textad&utm_campaign=ssclandingpage"><img src="./A Google-like Full Text Search - SQLServerCentral_files/supportedbyrglogo.gif" alt="SQLServerCentral is supported by Red Gate Software Ltd."></a></td>
+			</tr>
+		</tbody></table>
+	</td>
+	<td></td>
+</tr>
+<tr class="BodyRow">
+	<td class="TopLeft">&nbsp;</td>
+	<td class="HeaderBar">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr valign="middle">
+			<td>
+				<span class="LoginControls">
+					
+							Welcome, 
+							ssuing8825
+							&nbsp;&nbsp;
+							<a href="http://www.sqlservercentral.com/MyAccount">My Account</a>
+							&nbsp;::&nbsp;
+							<a href="http://www.sqlservercentral.com/briefcase">Briefcase</a>
+							&nbsp;::&nbsp;
+							<a href="http://www.sqlservercentral.com/Logout">Logout</a>
+						
+				</span>
+			</td>
+            <td align="right">
+			  
+			  <!-- Search -->
+			    <form action="http://www.sqlservercentral.com/search/">
+                  <input class="SearchBox SearchHint" name="q" maxlength="1000" type="text" size="34" title="Search">
+                   &nbsp;<input class="SearchGo" type="submit" value="Go">
+                 </form>
+              <script type="text/javascript" language="javascript">
+                $(function() {
+                  $('input[name=q]').hint('SearchHint');
+                });
+              </script>
+            
+		  </td>
+		</tr>
+      </tbody></table>
+	</td>
+	<td class="TopRight">&nbsp;</td>
+</tr>
+
+	</tbody></table>
+	<table width="100%" cellpadding="0" cellspacing="0" class="MainLayoutContainer">
+		<tbody><tr class="BodyRow" valign="top">
+			<td class="MainMenuCell">
+				<div class="MainMenuCellMenuItems">
+					
+<div class="MainMenu">
+  <ul>
+	  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/" data-event-category="MainMenu: Home">
+				    Home
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Tags" data-event-category="MainMenu: Tags">
+				    Tags
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Articles/" data-event-category="MainMenu: Articles">
+				    Articles
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Articles/Editorial" data-event-category="MainMenu: Editorials">
+				    Editorials
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/stairway/" data-event-category="MainMenu: Stairways">
+				    Stairways
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Forums" data-event-category="MainMenu: Forums">
+				    Forums
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Scripts/" data-event-category="MainMenu: Scripts">
+				    Scripts
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Articles/Video" data-event-category="MainMenu: Videos">
+				    Videos
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/blogs/" data-event-category="MainMenu: Blogs">
+				    Blogs
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Questions" data-event-category="MainMenu: QotD">
+				    QotD
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Books/" data-event-category="MainMenu: Books">
+				    Books
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://ask.sqlservercentral.com/" data-event-category="MainMenu: Ask SSC">
+				    Ask SSC
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://jobs.sqlservercentral.com/" data-event-category="MainMenu: SQL Jobs">
+				    SQL Jobs
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Training/" data-event-category="MainMenu: Training">
+				    Training
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem " href="http://www.sqlservercentral.com/Authors/Articles/" data-event-category="MainMenu: Authors">
+				    Authors
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem  Minor" href="javascript:ssc_showPostsSinceLastVisit()" data-event-category="MainMenu: Active Threads">
+				    Active Threads
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem  Minor" href="http://www.sqlservercentral.com/About/AboutUs/" data-event-category="MainMenu: About us">
+				    About us
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem  Minor" href="http://www.sqlservercentral.com/About/ContactUs/" data-event-category="MainMenu: Contact us">
+				    Contact us
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem  Minor" href="http://www.sqlservercentral.com/NewsletterArchive" data-event-category="MainMenu: Newsletters">
+				    Newsletters
+			    </a>
+			  </li>
+		  
+		    <li>
+			    <a class="track-clicks MenuItem  Minor" href="http://www.sqlservercentral.com/Contributions/Home" data-event-category="MainMenu: Write for us">
+				    Write for us
+			    </a>
+			  </li>
+		  
+	</ul>
+</div>
+				</div>
+				<!-- Skyscraper advert -->
+				<div align="center" style="margin-top:0.75em;"><table cellpadding="0" cellspacing="0"><tbody><tr><td align="left">
+					<a href="http://www.sqlservercentral.com/Contributions/Home" border="0"><img src="./A Google-like Full Text Search - SQLServerCentral_files/Writeforus_M1.gif"></a><br><br>
+
+<a href="http://devconnections.com/shows/fall2012/default.aspx?s=191&CID=SQLServerCentral&utm_source=SQLServer%2BCentral&utm_medium=newsletter&utm_campaign=CID%3DSQLServerCentral" border="0" target="_blank" style="margin-left:2px"><img alt="SQL Server Connections" src="./A Google-like Full Text Search - SQLServerCentral_files/SQL Server Connections_120x300.jpg"></a>
+				</td></tr></tbody></table></div>
+			</td>
+			<td class="MainContentLeftPadding">&nbsp;</td>
+			<td class="MainContentCell">
+				<!-- [content_start] -->
+					
+    <form name="aspnetForm" method="post" onsubmit="javascript:return WebForm_OnSubmit();" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_ctl00_MainContent_MainContent_DisplayLimiterControl_RegistrationControl_RegisterButton&#39;)" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/WebResource.axd" type="text/javascript"></script>
+
+
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/HelpTooltip.js" type="text/javascript"></script>
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/ScriptResource.axd" type="text/javascript"></script>
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/IFramePopupController.js" type="text/javascript"></script>
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/ScriptResource(1).axd" type="text/javascript"></script>
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/ScriptResource(2).axd" type="text/javascript"></script>
+<script src="./A Google-like Full Text Search - SQLServerCentral_files/WebResource(1).axd" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+        
+
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctl00$MainContent$MainContent$ctl00', document.getElementById('aspnetForm'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls([], [], [], 90);
+//]]>
+</script>
+
+
+
+    
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" class="DynamicContent">
+            <tbody><tr valign="top">
+                <td rowspan="2">
+                    
+
+<div class="content-meta">
+  
+
+<div class="share-tools">
+  <div class="addthis_toolbox addthis_default_style ">
+    <p>Thank this author by sharing:</p>
+    <a class="addthis_button_google_plusone at300b" g:plusone:annotation="none" title="Google_plusone" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><div style="height: 15px; width: 24px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; background-position: initial initial; background-repeat: initial initial; " id="___plusone_0"><iframe allowtransparency="true" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 24px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px; " tabindex="0" vspace="0" width="100%" id="I0_1349962626803" name="I0_1349962626803" src="./A Google-like Full Text Search - SQLServerCentral_files/fastbutton.htm" title="+1"></iframe></div></a>
+    <a class="addthis_button_linkedin at300b" href="http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4f3bb4c87aeb8915&source=tbx-250&lng=en-US&s=linkedin&url=http%3A%2F%2Fwww.sqlservercentral.com%2Farticles%2FFull-Text%2BSearch%2B(2008)%2F64248%2F&title=A%20Google-like%20Full%20Text%20Search%20-%20SQLServerCentral&ate=AT-ra-4f3bb4c87aeb8915/-/-/5076cb82a30c2325/2&frommenu=1&uid=5076cb82ab35e8e9&ct=1&pre=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F12827838%2Frest-search-query-handling-special-characters-design-standards%2F12829490&tt=0&captcha_provider=nucaptcha" target="_blank" title="Linkedin"><span class="at16nc at300bs at15nc at15t_linkedin at16t_linkedin"><span class="at_a11y">Share on linkedin</span></span></a>
+    <a class="addthis_button_facebook at300b" title="Facebook" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_facebook at16t_facebook"><span class="at_a11y">Share on facebook</span></span></a>
+    <a class="addthis_button_twitter at300b" title="Tweet This" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_twitter at16t_twitter"><span class="at_a11y">Share on twitter</span></span></a>
+    <a class="addthis_button_compact at300m" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_compact at16t_compact"><span class="at_a11y">More Sharing Services</span></span></a>
+    <a class="addthis_counter addthis_bubble_style" style="display: block; " href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><a class="addthis_button_expanded" title="View more services" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#">3</a><a class="atc_s addthis_button_compact"><span></span></a></a>
+  <div class="atclear"></div></div>
+  <script type="text/javascript">
+      var addthis_config = {
+          pubid: "ra-4f3bb4c87aeb8915"
+      };
+
+      SSC.loadScript("s7.addthis.com/js/250/addthis_widget.js");
+  </script>
+</div>
+  <ul>
+	  <li><span isratingcontrol="true"><img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png">  <a id="ctl00_ctl00_MainContent_MainContent_DisplayLimiterControl_ContentMetadata1_RateThisLink" onclick="IFramePopup_Open(this, event, &#39;/sqlservercentral2/Controls/Rating/RatingPopup.aspx?ContentItemID=64248&#39;, 330, &#39;RateThis&#39;, &#39;__doPostBack(\&#39;ctl00$ctl00$MainContent$MainContent$DisplayLimiterControl$ContentMetadata1$ctl05\&#39;,\&#39;[ifpe_arg]\&#39;)&#39;);" href="javascript:;">&nbsp;Rate this</a></span></li>
+    <li>
+      <img src="./A Google-like Full Text Search - SQLServerCentral_files/Discuss.gif">&nbsp;
+	    <a href="http://www.sqlservercentral.com/Forums/FindPost581526.aspx">Join the discussion</a>
+    </li>
+    <li>
+
+<a href="javascript:;" class="add-to-briefcase" data-content-item-id="64248">
+  <img src="./A Google-like Full Text Search - SQLServerCentral_files/briefcase.gif" align="baseline">&nbsp;
+  Add to briefcase
+</a></li>
+	  
+      <li>
+        
+
+<a href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/Printable" onclick="window.open(&#39;Printable&#39;, null, &#39;width=600,height=600,menubar=1,resizable=1,scrollbars=1,location=0,status=0&#39;); return false;">
+  <img src="./A Google-like Full Text Search - SQLServerCentral_files/print.gif" alt="">&nbsp;
+  Print
+</a>
+      </li>
+	  
+  </ul>
+</div>
+
+                    <h1>A Google-like Full Text Search</h1>
+                    
+
+<p>
+  <strong>
+    
+	    By <a href="http://www.sqlservercentral.com/Authors/Articles/Michael_Coles/212373/">Michael Coles</a>, 
+    2010/05/31 (first published: 2008/10/07)
+  </strong>
+</p>
+                                    
+                    <div class="content-text">	<p>
+		Thanks to Internet search engines like Google and Yahoo!, your search application users are more sophisticated and demanding than ever. Your application users have a wealth of search application knowledge that they're probably not even aware of. Ask one of them to find a website dedicated to their favorite band or movie and odds are they'll have their browser pointed to that page in a matter of seconds.
+	</p>
+	<p>
+		You can tap into the self-education that comes from countless hours spent at home trying to locate information on the Web and turn it to your advantage in your own SQL Server-based search applications. With just a little bit of code you can help reduce your training costs and give your users an easy to use interface that will make them want to use your search applications. In this article I'll explain how to convert Google-style queries to SQL Server's full-text search <font face="courier">CONTAINS</font> predicate syntax.
+	</p>
+	<p>
+		<strong>Google Style</strong>
+	</p>
+	<p>
+		The key to a successful application is to make it easy to use but powerful. Google has done this with their Web search engine. The syntax for queries is simple and intuitive, but full-featured. Though the basic building blocks of a Google query are simple you can combine them in powerful ways. I'll begin with basic Google query syntax and add some additional operators to take advantage of the power of SQL Server <font face="courier">CONTAINS</font> predicate syntax. The full Google syntax is defined in the <i>Google Help:Cheat Sheet</i> at <a href="http://www.google.com/help/cheatsheet.html">http://www.google.com/help/cheatsheet.html</a>.
+	</p>
+	<p>
+		For starters, I'll take as much as I can from the Google syntax, and then add a few SQL Server specific features. The final syntax will include the following features:
+	</p>
+	<p>
+		<div class="wideImageContainer" style="width: 536px; "><div><div style="width:532px; height:539.836333878887px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#39;http://www.sqlservercentral.com/Images/1783.png&#39;, sizingMethod=&#39;scale&#39;);">&nbsp;</div></div><div><img src="./A Google-like Full Text Search - SQLServerCentral_files/zoom.gif" align="bottom" style="margin: 0px 3px; "><a href="javascript:;">Zoom in</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="javascript:;">Open in new window</a></div></div>
+	</p>
+	<p>
+		Although I tried to remain faithful to the Google syntax, you'll notice some slight variation. Where I've deviated I've done so for good reason (mostly, anyway):
+	</p>
+	<p>
+		</p><ul>
+			<li>I added some features to take advantage of SQL Server FTS-specific functionality, like the proximity search operator.</li>
+			<li>I had to modify the operation of some features like the <font face="courier">*</font> wildcard to fit with SQL Server's FTS query requirements.</li>
+			<li>Some features I just added because it seemed like a good idea and made sense, such as the (optional) explicit <font face="courier">AND</font> operator and parentheses.</li>
+		</ul>
+	<p></p>
+	<p>
+	    <strong>The Grammar</strong>
+	</p>
+	<p>
+		The search engine grammar that implements the syntax shown in the Google to FTS Cheat Sheet above can be defined using Extended Backus-Naur Form (EBNF). In EBNF grammatical constructs, known as productions, are written out using the following format:
+	</p>
+	<pre class="code">	lhs ::= rhs
+	</pre>
+	<p>
+		In this format the lhs (left-hand side) is the name of the production. The rhs (right-hand side) consists of the terminals and nonterminals that make up the production. The <font face="courier">::=</font> symbol itself can be read as meaning "consists of", so that the production <font face="courier">Query ::= OrExpression</font> means that the <font face="courier">Query</font> production consists of an <font face="courier">OrExpression</font> nonterminal. The <font face="courier">|</font> symbol on the right-hand side indicates a choice of terminals and nonterminals that the production can consist of.
+	</p>
+	<p>
+		I've taken a few liberties with the EBNF grammar form for readability purposes, but the following holds true: (1) parentheses can be used in EBNF to indicate a group of terminal and nonterminal choices on the right-hand side; (2) braces are used to indicate optional components; (3) single quotes indicate literal characters or strings; (4) curly braces indicate optional terminals or nonterminals; and (5) the + sign following a terminal, nonterminal, or group indicates one or more occurrences.
+	</p>
+	<pre class="code">	Query ::= OrExpression
+
+	OrExpression ::= AndExpression
+	               | OrExpression ( 'or' | '|' ) AndExpression
+
+	AndExpression ::= PrimaryExpression
+	                | AndExpression { 'and' | '&amp;' } PrimaryExpression
+
+	PrimaryExpression ::= Term
+	                    | '-' Term
+	                    | Phrase
+	                    | '(' OrExpression ')'
+	                    | '&lt;' ( Term | Phrase )+ '&gt;'
+
+	ExactExpression ::= '+' Term
+	                  | '+' Phrase
+
+	Term ::= ('A'...'Z'|'0'...'9'|'!'|'@'|'#'|'$'|'%'|'^'|'*'|'_'|'’'|'.'|'?')+
+
+	Phrase ::= '"' (string characters)+ '"'
+	</pre>
+	<p>
+		Describing the EBNF grammar is an important step to formally define your language.  Fortunately for us the EBNF description of this search engine grammar is nice and simple: it consists of 7 rules (5 nonterminals and 2 terminals).  By way of contrast the EBNF for the SQL language consists of hundreds of production rules.  Now that we have the grammar defined, it's time to turn our attention to the implementation.
+	</p>
+	<p>
+		<strong>Conversion Engine</strong>
+	</p>
+	<p>
+		For the conversion engine I decided to use Roman Ivantsov's Irony .NET Compiler Construction Kit, freely available for download from <a href="http://www.codeplex.com/irony">http://www.codeplex.com/irony</a>. I chose Roman's Irony toolkit over other lexical analyzer/parser solutions for a few reasons:
+	</p>
+	<p>
+		</p><ol>
+			<li>Irony is built in C# and optimized for .NET; you can create a grammar as a .NET class.</li>
+			<li>Irony is much easier to use for simple grammars than some of the other tools available, like Yacc and Lex, Gold Parser, and others.</li>
+			<li>Irony automatically generates an optimized abstract syntax tree (AST), where other parsers require you to build your own. This was a huge timesaver.</li>
+		</ol>
+	<p></p>
+	<p>
+		The conversion engine is really pretty simple. It consists of one class called <font face="courier">SearchGrammar</font>. The <font face="courier">SearchGrammar</font> class contains the grammar definition in its constructor and exposes a class that walks the AST, converting the Google-style query string to a SQL Server FTS <font face="courier">CONTAINS</font> query. The <font face="courier">SearchGrammar</font> constructor defines the terminals and nonterminals that make up the Google-style grammar. As you can see in the listing below, it closely resembles the standard Extended Backus-Naur Form (EBNF) grammar form that it was derived from.
+	</p>
+	<pre class="code">	public SearchGrammar()
+	{
+		// Terminals
+		var Term = new IdentifierTerminal
+		(
+			"Term",
+			"!@#$%^*_'.?",
+			"!@#$%^*_'.?0123456789"
+		);
+
+		Term.Priority = Terminal.LowestPriority;
+		var Phrase = new StringLiteral("Phrase");
+
+		// NonTerminals
+		var OrExpression = new NonTerminal("OrExpression");
+		var OrOperator = new NonTerminal("OrOperator");
+		var AndExpression = new NonTerminal("AndExpression");
+		var AndOperator = new NonTerminal("AndOperator");
+		var ExcludeOperator = new NonTerminal("ExcludeOperator");
+		var PrimaryExpression = new NonTerminal("PrimaryExpression");
+		var ThesaurusExpression = new NonTerminal("ThesaurusExpression");
+		var ThesaurusOperator = new NonTerminal("ThesaurusOperator");
+		var ExactOperator = new NonTerminal("ExactOperator");
+		var ExactExpression = new NonTerminal("ExactExpression");
+		var ParenthesizedExpression = new NonTerminal("ParenthesizedExpression");
+		var ProximityExpression = new NonTerminal("ProximityExpression");
+		var ProximityList = new NonTerminal("ProximityList");
+
+		this.Root = OrExpression;
+		OrExpression.Rule = AndExpression
+			| OrExpression + OrOperator + AndExpression;
+		OrOperator.Rule = Symbol("or") | "|";
+		AndExpression.Rule = PrimaryExpression
+			| AndExpression + AndOperator + PrimaryExpression;
+		AndOperator.Rule = Empty
+			| "and"
+			| "&amp;"
+			| ExcludeOperator;
+		ExcludeOperator.Rule = Symbol("-");
+		PrimaryExpression.Rule = Term
+			| ThesaurusExpression
+			| ExactExpression
+			| ParenthesizedExpression
+			| Phrase
+			| ProximityExpression;
+		ThesaurusExpression.Rule = ThesaurusOperator + Term;
+		ThesaurusOperator.Rule = Symbol("~");
+		ExactExpression.Rule = ExactOperator + Term
+			| ExactOperator + Phrase;
+		ExactOperator.Rule = Symbol("+");
+		ParenthesizedExpression.Rule = "(" + OrExpression + ")";
+		ProximityExpression.Rule = "&lt;" + ProximityList + "&gt;";
+		MakePlusRule(ProximityList, Term);
+
+		RegisterPunctuation("&lt;", "&gt;", "(", ")");
+
+	}
+	</pre>
+	<p>
+		The <font face="courier">ConvertQuery</font> function accepts the AST generated by the grammar as input and recursively walks the AST starting with the root node. This is a very simple method of operation which works well for a simple grammar. The listing below is the AST walker.  Notice that some special conditions, such as the wildcard <font face="courier">*</font> operator are better handled by the AST walker instead of trying to handle them in the grammar definition itself.
+	</p>
+	<pre class="code">	public enum TermType
+	{
+		Inflectional = 1,
+		Thesaurus = 2,
+		Exact = 3
+	}
+
+	public static string ConvertQuery(AstNode node, TermType term)
+	{
+		string result = "";
+		switch (node.Term.Name)
+		{
+			case "OrExpression":
+				result = "(" + ConvertQuery(node.ChildNodes[0], type) + " OR " +
+				ConvertQuery(node.ChildNodes[2]) + ")";
+				break;
+
+			case "AndExpression":
+				AstNode tmp2 = node.ChildNodes[1];
+				string opName = tmp2.Term.Name;
+				string andop = "";
+
+				if (opName == "-")
+				{
+					andop += " AND NOT ";
+				}
+				else
+				{
+					andop = " AND ";
+					type = TermType.Inflectional;
+				}
+				result = "(" + ConvertQuery(node.ChildNodes[0], type) + andop +
+				ConvertQuery(node.ChildNodes[2]) + ")";
+				type = TermType.Inflectional;
+				break;
+
+			case "PrimaryExpression":
+				result = "(" + ConvertQuery(node.ChildNodes[0], type) + ")";
+				break;
+
+			case "ProximityList":
+				string[] tmp = new string[node.ChildNodes.Count];
+				type = TermType.Exact;
+				for (int i = 0; i &lt; node.ChildNodes.Count; i++)
+				{
+					tmp[i] = ConvertQuery(node.ChildNodes[i], type);
+				}
+				result = "(" + string.Join(" NEAR ", tmp) + ")";
+				type = TermType.Inflectional;
+				break;
+
+			case "Phrase":
+				result = '"' + ((Token)node).ValueString + '"';
+				break;
+
+			case "ThesaurusExpression":
+				result = " FORMSOF (THESAURUS, " +
+						((Token)node.ChildNodes[1]).ValueString + ") ";
+				break;
+
+			case "ExactExpression":
+				result = " \"" + ((Token)node.ChildNodes[1], type).ValueString + "\" ";
+				break;
+
+			case "Term":
+				switch (type)
+				{
+					case TermType.Inflectional:
+						result = ((Token)node).ValueString;
+						if (result.EndsWith("*"))
+							result = "\"" + result + "\"";
+						else
+							result = " FORMSOF (INFLECTIONAL, " +  result + ") ";
+						break;
+
+					case TermType.Exact:
+						result = ((Token)node).ValueString;
+						break;
+				}
+				break;
+
+			default:
+				throw new ApplicationException("Converter failed: unexpected term: " +
+				node.Term.Name + ". Please investigate.");
+
+		}
+		return result;
+	}
+	</pre>
+	<p>
+		<strong>The Output</strong>
+	</p>
+	<p>
+		The conversion engine accepts a Google-style query as input and outputs a SQL Server FTS-style <font face="courier">CONTAINS</font> query. Once that's done you can open a database connection and execute the <font face="courier">CONTAINS</font> query against your database. For this function I've added the <font face="courier">ExecuteQuery</font> method to my <font face="courier">SearchGrammar</font> class. This method accepts the FTS query string generated by the <font face="courier">ConvertQuery</font> function as a parameter, opens a database connection and executes the full-text query. In the listing below I execute the query against the <font face="courier">Production.Document</font> table in the AdventureWorks sample database. I chose this table because it's already got a full-text index built on it - one less thing to worry about.
+	</p>
+	<pre class="code">	private static string connectionString = "DATA SOURCE=(local);" +
+		"INITIAL CATALOG=AdventureWorks;" +
+		"INTEGRATED SECURITY=SSPI;";
+
+	public static DataTable ExecuteQuery(string ftsQuery)
+	{
+		SqlDataAdapter da = null;
+		DataTable dt = null;
+		try
+		{
+			dt = new DataTable();
+			da = new SqlDataAdapter
+			(
+				"SELECT ROW_NUMBER() OVER (ORDER BY DocumentId) AS Number, " +
+				"   Title, " +
+				"   DocumentSummary " +
+				"FROM Production.Document " +
+				"WHERE CONTAINS(*, @ftsQuery);",
+				connectionString
+			);
+			da.SelectCommand.Parameters.Add("@ftsQuery", SqlDbType.NVarChar, 4000).Value = ftsQuery;
+			da.Fill(dt);
+			da.Dispose();
+		}
+		catch (Exception ex)
+		{
+			if (da != null)
+			da.Dispose();
+			if (dt != null)
+			dt.Dispose();
+			throw (ex);
+		}
+		return dt;
+	}
+	</pre>
+	<p>
+		I've chosen to populate a <font face="courier">DataTable</font> via a <font face="courier">SqlDataAdapter</font> just for simplicity of code, since I'm going to populate a <font face="courier">DataGridView</font> with the results. Alternatively you can use a <font face="courier">SqlDataCommand</font> and <font face="courier">SqlDataReader</font> to retrieve the results. The important part is the <font face="courier">CONTAINS</font> clause of the query, which should ultimately resemble this:
+	</p>
+	<pre class="code">	SELECT ...
+	FROM ...
+	WHERE CONTAINS(*, @ftsQuery);
+	</pre>
+	<p>
+		The <font face="courier">@ftsQuery</font> parameter is your actual <font face="courier">CONTAINS</font> clause FTS query with all of its strange and wondrous keywords and operators. In order to provide transparency to the conversion process, and make it easier to test, the sample application in the download displays the FTS query that your Google-syntax query generates, as shown below.
+	</p>
+	<p>
+		<div class="wideImageContainer" style="width: 536px; "><div><div style="width:532px; height:253.54681647940075px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#39;http://www.sqlservercentral.com/Images/1782.png&#39;, sizingMethod=&#39;scale&#39;);">&nbsp;</div></div><div><img src="./A Google-like Full Text Search - SQLServerCentral_files/zoom.gif" align="bottom" style="margin: 0px 3px; "><a href="javascript:;">Zoom in</a><span>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a href="javascript:;">Open in new window</a></div></div>
+	</p>
+	<p>
+		As you can see, the Google-style sample query in the example:
+	</p>
+	<pre class="code">		("aluminum" +crank) OR tire
+	</pre>
+	<p>
+		Is converted to the FTS <font face="courier">CONTAINS</font> query:
+	</p>
+	<pre class="code">		(("aluminum" AND  "crank" ) OR  FORMSOF (INFLECTIONAL, tire) )
+	</pre>
+	<p>
+		Performing tests of this form is the best way to determine how the conversion engine performs translates your queries to FTS syntax.
+	</p>
+	<p>
+		<strong>Conclusion</strong>
+	</p>
+	<p>
+		With just a little bit of code you can create a simple and powerful interface for you SQL Server-based full-text search applications. Leveraging the Web search knowledge that your end users already have can cut down training time and costs, make your users more productive, and ensure that users will take full advantage of the search-based applications you design for them.
+	</p>
+	<p>
+		<strong>Download</strong>
+	</p>
+	<p>
+		The source code used in this article is available for download from the link above. This code was written in C# using Visual Studio 2008, and is designed to run against the SQL Server 2005 AdventureWorks sample database. The Irony .NET Compiler Construction Toolkit is available from <a href="http://www.codeplex.com/irony">http://www.codeplex.com/irony</a>.
+	</p>
+	<p>
+		<strong>Thanks</strong>
+	</p>
+	<p>
+		To finish up this article I'd like to thank Roman Ivantsov for creating the Irony .NET Compiler Construction Toolkit, for reviewing my initial grammar, and for taking the initial crack at the AST walker.
+	</p>
+	<p>
+		<strong>About The Author</strong>
+	</p>
+	<p>
+		Michael Coles is a Microsoft MVP and the author of the <a href="http://www.amazon.com/T-SQL-2008-Programmer-rsquo-Guide/dp/143021001X">Pro T-SQL 2008 Programmer's Guide</a> and coauthor of the upcoming book <a href="http://www.amazon.com/Pro-Full-Text-Search-Server-2008/dp/1430215941/">Pro Full Text Search In SQL Server 2008</a>.
+	</p>
+</div>
+
+                    
+                            <a name="Resources"></a>
+                            <h3>Resources:</h3>
+                        <a href="http://www.sqlservercentral.com/Files/GoogleFTS_Download.zip/1781.zip">GoogleFTS_Download.zip</a> 
+
+<div class="content-meta">
+  
+
+<div class="share-tools">
+  <div class="addthis_toolbox addthis_default_style ">
+    <p>Thank this author by sharing:</p>
+    <a class="addthis_button_google_plusone at300b" g:plusone:annotation="none" title="Google_plusone" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><div style="height: 15px; width: 24px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; background-position: initial initial; background-repeat: initial initial; " id="___plusone_1"><iframe allowtransparency="true" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 24px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px; " tabindex="0" vspace="0" width="100%" id="I1_1349962626805" name="I1_1349962626805" src="./A Google-like Full Text Search - SQLServerCentral_files/fastbutton(1).htm" title="+1"></iframe></div></a>
+    <a class="addthis_button_linkedin at300b" href="http://www.addthis.com/bookmark.php?v=250&winname=addthis&pub=ra-4f3bb4c87aeb8915&source=tbx-250&lng=en-US&s=linkedin&url=http%3A%2F%2Fwww.sqlservercentral.com%2Farticles%2FFull-Text%2BSearch%2B(2008)%2F64248%2F&title=A%20Google-like%20Full%20Text%20Search%20-%20SQLServerCentral&ate=AT-ra-4f3bb4c87aeb8915/-/-/5076cb82a30c2325/3&frommenu=1&uid=5076cb824dae8951&ct=1&pre=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F12827838%2Frest-search-query-handling-special-characters-design-standards%2F12829490&tt=0&captcha_provider=nucaptcha" target="_blank" title="Linkedin"><span class="at16nc at300bs at15nc at15t_linkedin at16t_linkedin"><span class="at_a11y">Share on linkedin</span></span></a>
+    <a class="addthis_button_facebook at300b" title="Facebook" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_facebook at16t_facebook"><span class="at_a11y">Share on facebook</span></span></a>
+    <a class="addthis_button_twitter at300b" title="Tweet This" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_twitter at16t_twitter"><span class="at_a11y">Share on twitter</span></span></a>
+    <a class="addthis_button_compact at300m" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><span class="at16nc at300bs at15nc at15t_compact at16t_compact"><span class="at_a11y">More Sharing Services</span></span></a>
+    <a class="addthis_counter addthis_bubble_style" style="display: block; " href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#"><a class="addthis_button_expanded" title="View more services" href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/#">3</a><a class="atc_s addthis_button_compact"><span></span></a></a>
+  <div class="atclear"></div></div>
+  <script type="text/javascript">
+      var addthis_config = {
+          pubid: "ra-4f3bb4c87aeb8915"
+      };
+
+      SSC.loadScript("s7.addthis.com/js/250/addthis_widget.js");
+  </script>
+</div>
+  <ul>
+	  <li><span isratingcontrol="true"><img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png"> <img src="./A Google-like Full Text Search - SQLServerCentral_files/FilledStar.png">  <a id="ctl00_ctl00_MainContent_MainContent_DisplayLimiterControl_ContentMetadata2_RateThisLink" onclick="IFramePopup_Open(this, event, &#39;/sqlservercentral2/Controls/Rating/RatingPopup.aspx?ContentItemID=64248&#39;, 330, &#39;RateThis&#39;, &#39;__doPostBack(\&#39;ctl00$ctl00$MainContent$MainContent$DisplayLimiterControl$ContentMetadata2$ctl05\&#39;,\&#39;[ifpe_arg]\&#39;)&#39;);" href="javascript:;">&nbsp;Rate this</a></span></li>
+    <li>
+      <img src="./A Google-like Full Text Search - SQLServerCentral_files/Discuss.gif">&nbsp;
+	    <a href="http://www.sqlservercentral.com/Forums/FindPost581526.aspx">Join the discussion</a>
+    </li>
+    <li>
+
+<a href="javascript:;" class="add-to-briefcase" data-content-item-id="64248">
+  <img src="./A Google-like Full Text Search - SQLServerCentral_files/briefcase.gif" align="baseline">&nbsp;
+  Add to briefcase
+</a></li>
+	  
+      <li>
+        
+
+<a href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/64248/Printable" onclick="window.open(&#39;Printable&#39;, null, &#39;width=600,height=600,menubar=1,resizable=1,scrollbars=1,location=0,status=0&#39;); return false;">
+  <img src="./A Google-like Full Text Search - SQLServerCentral_files/print.gif" alt="">&nbsp;
+  Print
+</a>
+      </li>
+	  
+  </ul>
+</div>
+
+
+<div class="content-views">
+	Total article views: 78042
+	<span class="Separator">|</span>
+	Views in the last 30 days: 256
+</div>
+
+                </td>
+                <td rowspan="2" width="20">&nbsp;</td>
+                
+                    <td width="315">
+                        
+                        
+                            <div class="BarSpacer"></div>
+                            <div>
+                                <div class="BarLeft"></div>
+                                <div class="Bar">
+                                    <div class="Subheading"></div>
+                                    Related Articles
+                                </div>
+                                
+
+<div class="IndentedColumn">
+    <div class="contentSummary">
+    
+        
+        
+            <div class="SearchResult" id="s66788">
+                <div class="SearchType script"><div>SCRIPT</div></div>
+                <div class="SearchDetails">
+                    <h3>
+                        <a href="http://www.sqlservercentral.com/scripts/66788/">Split by a row (count) number of a query results </a>
+                    </h3>
+                    
+                        <p>Query results splitter</p>
+                    
+                </div>
+            </div>
+        
+        
+        
+            <div class="SearchResult" id="f762938">
+                <div class="SearchType forum"><div>FORUM</div></div>
+                <div class="SearchDetails">
+                    <h3>
+                        <a href="http://www.sqlservercentral.com/Forums/FindPost762938.aspx">Copy query result issue</a>
+                    </h3>
+                    
+                        <p>Copy query result issue</p>
+                    
+                </div>
+            </div>
+        
+        
+        
+            <div class="SearchResult" id="f674074">
+                <div class="SearchType forum"><div>FORUM</div></div>
+                <div class="SearchDetails">
+                    <h3>
+                        <a href="http://www.sqlservercentral.com/Forums/FindPost674074.aspx">Problem with query result</a>
+                    </h3>
+                    
+                        <p>Query result out of......</p>
+                    
+                </div>
+            </div>
+        
+        
+        
+            <div class="SearchResult" id="f707679">
+                <div class="SearchType forum"><div>FORUM</div></div>
+                <div class="SearchDetails">
+                    <h3>
+                        <a href="http://www.sqlservercentral.com/Forums/FindPost707679.aspx">Two query results mixed together</a>
+                    </h3>
+                    
+                        <p>Two query results mixed together</p>
+                    
+                </div>
+            </div>
+        
+        
+        
+            <div class="SearchResult" id="f1011093">
+                <div class="SearchType forum"><div>FORUM</div></div>
+                <div class="SearchDetails">
+                    <h3>
+                        <a href="http://www.sqlservercentral.com/Forums/FindPost1011093.aspx">Copying Headers from SQL Query Window results in SQL 2005</a>
+                    </h3>
+                    
+                        <p>SQL Query results Headers</p>
+                    
+                </div>
+            </div>
+        
+        
+    
+    </div>
+</div>
+
+                            </div>
+                        
+
+<div id="tagCloud">
+    <div class="BarLeft"></div><div class="Bar">Tags</div>
+
+    <div class="IndentedColumn">
+        <div class="IndentedTagColumn">
+           <table id="ctl00_ctl00_MainContent_MainContent_DisplayLimiterControl_TagCloud1_TagsList" cellspacing="0" border="0" style="border-collapse:collapse;">
+	<tbody><tr>
+		<td valign="top">
+			        <a href="http://www.sqlservercentral.com/articles/Full-Text+Search+(2008)/">full-text search (2008)</a> 
+			        
+			        &nbsp;&nbsp;&nbsp;
+		        </td>
+	</tr>
+</tbody></table>
+        </div>
+    </div>
+</div>
+<!-- -->
+                        
+                        <div class="BarSpacer">&nbsp;</div>
+                        <div class="IndentedColumn">
+                            <div class="IndentedTagColumn">
+                                <a href="http://www.sqlservercentral.com/Contributions/Home"><img src="./A Google-like Full Text Search - SQLServerCentral_files/Writeforus_M1.gif" alt="Contribute"></a>
+                            </div>
+                        </div>
+                    
+                    
+                </td>
+            </tr>
+        </tbody></table>
+    
+		
+
+
+    
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        WebForm_AutoFocus('ctl00_ctl00_MainContent_MainContent_DisplayLimiterControl_RegistrationControl_EmailAddress');Sys.Application.initialize();
+//]]>
+</script>
+</form>
+
+				<!-- [content_end] -->
+			</td>
+			
+		</tr>
+	</tbody></table>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" class="MainLayoutContainer MainLayoutContainerBottom">
+		<tbody><tr class="BodyRow">
+			<td class="BottomLeft">&nbsp;</td>
+			<td>
+				<div class="Footer">
+					Copyright © 2002-2012 Simple Talk Publishing. All Rights Reserved. <a href="http://www.sqlservercentral.com/About/Privacy/">Privacy Policy.</a> <a href="http://www.sqlservercentral.com/About/Terms">Terms of Use.</a> <a href="mailto:abuse@sqlservercentral.com">Report Abuse.</a>
+				</div>
+			</td>
+			<td class="BottomRight">&nbsp;</td>
+		</tr>
+	</tbody></table>
+	<script type="text/javascript">
+	    if (typeof jQuery != 'undefined') {
+	        $('.rounded').corner();
+	    }
+	</script>
+<!--SiteTemplateEnds-->
+
+
+</body></html>

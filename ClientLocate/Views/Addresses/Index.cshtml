@@ -1,0 +1,101 @@
+@model IEnumerable<ClientLocate.Models.Address>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            AddressLine1
+        </th>
+        <th>
+            AddressLine2
+        </th>
+        <th>
+            IsPoBox
+        </th>
+        <th>
+            PoBox
+        </th>
+        <th>
+            UnitType
+        </th>
+        <th>
+            UnitNumber
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Zip
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            AddressType
+        </th>
+        <th>
+            Person
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+        <td>
+			@item.AddressLine1
+        </td>
+        <td>
+			@item.AddressLine2
+        </td>
+        <td>
+			@item.IsPoBox
+        </td>
+        <td>
+			@item.PoBox
+        </td>
+        <td>
+			@item.UnitType
+        </td>
+        <td>
+			@item.UnitNumber
+        </td>
+        <td>
+			@item.City
+        </td>
+        <td>
+			@item.State
+        </td>
+        <td>
+			@item.Zip
+        </td>
+        <td>
+			@item.Country
+        </td>
+        <td>
+			@item.AddressType
+        </td>
+        <td>
+			@(item.Person == null ? "None" : item.Person.LastName)
+        </td>
+    </tr>
+}
+
+</table>
+
+

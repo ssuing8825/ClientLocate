@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="http://ec2-50-19-48-181.compute-1.amazonaws.com/MSDEPLOYAGENTSERVICE/" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="Default Web Site" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="Administrator" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABzYewNTnGUmXKjGg4bmV3QAAAAACAAAAAAADZgAAwAAAABAAAAB0I7bTDtxpM+wN2u0X0CBPAAAAAASAAACgAAAAEAAAAC7JlL9Ut3wgiF2GQAXC0l0YAAAAz0I3tX9tYrwc878UTNEElGWBWF4mP1/0FAAAAPdtpjghfHHisvAhnKfaQ3VDJnx6" SelectedForPublish="True" />
+</publishData>

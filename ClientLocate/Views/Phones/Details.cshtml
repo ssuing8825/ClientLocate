@@ -1,0 +1,32 @@
+@model ClientLocate.Models.Phone
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Phone</legend>
+
+    <div class="display-label">AreaCode</div>
+    <div class="display-field">@Model.AreaCode</div>
+
+    <div class="display-label">LocalNumber</div>
+    <div class="display-field">@Model.LocalNumber</div>
+
+    <div class="display-label">Extension</div>
+    <div class="display-field">@Model.Extension</div>
+
+    <div class="display-label">PhoneType</div>
+    <div class="display-field">@Model.PhoneType</div>
+
+    <div class="display-label">Person</div>
+    <div class="display-field">@(Model.Person == null ? "None" : Model.Person.LastName)</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

@@ -1,0 +1,50 @@
+@model ClientLocate.Models.Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Person</legend>
+
+    <div class="display-label">ClientId</div>
+    <div class="display-field">@Model.ClientId</div>
+
+    <div class="display-label">FirstName</div>
+    <div class="display-field">@Model.FirstName</div>
+
+    <div class="display-label">LastName</div>
+    <div class="display-field">@Model.LastName</div>
+
+    <div class="display-label">MiddleName</div>
+    <div class="display-field">@Model.MiddleName</div>
+
+    <div class="display-label">NamePrefix</div>
+    <div class="display-field">@Model.NamePrefix</div>
+
+    <div class="display-label">NameSuffix</div>
+    <div class="display-field">@Model.NameSuffix</div>
+
+    <div class="display-label">Gender</div>
+    <div class="display-field">@Model.Gender</div>
+
+    <div class="display-label">DateOfBirth</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DateOfBirth)</div>
+
+    <div class="display-label">TaxId</div>
+    <div class="display-field">@Model.TaxId</div>
+
+    <div class="display-label">Addresses</div>
+    <div class="display-field">@(Model.Addresses == null ? "None" : Model.Addresses.Count.ToString())</div>
+
+    <div class="display-label">Phones</div>
+    <div class="display-field">@(Model.Phones == null ? "None" : Model.Phones.Count.ToString())</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

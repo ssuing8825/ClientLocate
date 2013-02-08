@@ -1,0 +1,95 @@
+@model IEnumerable<ClientLocate.Models.Person>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            ClientId
+        </th>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            MiddleName
+        </th>
+        <th>
+            NamePrefix
+        </th>
+        <th>
+            NameSuffix
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            DateOfBirth
+        </th>
+        <th>
+            TaxId
+        </th>
+        <th>
+            Addresses
+        </th>
+        <th>
+            Phones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+        <td>
+			@item.ClientId
+        </td>
+        <td>
+			@item.FirstName
+        </td>
+        <td>
+			@item.LastName
+        </td>
+        <td>
+			@item.MiddleName
+        </td>
+        <td>
+			@item.NamePrefix
+        </td>
+        <td>
+			@item.NameSuffix
+        </td>
+        <td>
+			@item.Gender
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DateOfBirth)
+        </td>
+        <td>
+			@item.TaxId
+        </td>
+        <td>
+			@(item.Addresses == null ? "None" : item.Addresses.Count.ToString())
+        </td>
+        <td>
+			@(item.Phones == null ? "None" : item.Phones.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

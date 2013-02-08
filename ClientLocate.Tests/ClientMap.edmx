@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientDataMapModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ClientDataMapModelStoreContainer">
+          <EntitySet Name="ClientAddress" EntityType="ClientDataMapModel.Store.ClientAddress" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientInfo" EntityType="ClientDataMapModel.Store.ClientInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Phone" EntityType="ClientDataMapModel.Store.Phone" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AddressType" EntityType="ClientDataMapModel.Store.AddressType" store:Type="Tables" Schema="Reference" />
+          <EntitySet Name="PhoneType" EntityType="ClientDataMapModel.Store.PhoneType" store:Type="Tables" Schema="Reference" />
+          <AssociationSet Name="FK_ClientAddress_AddressType_AddressTypeCode" Association="ClientDataMapModel.Store.FK_ClientAddress_AddressType_AddressTypeCode">
+            <End Role="AddressType" EntitySet="AddressType" />
+            <End Role="ClientAddress" EntitySet="ClientAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientAddress_ClientInfo_ClientId" Association="ClientDataMapModel.Store.FK_ClientAddress_ClientInfo_ClientId">
+            <End Role="ClientInfo" EntitySet="ClientInfo" />
+            <End Role="ClientAddress" EntitySet="ClientAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_ClientInfo_ClientId" Association="ClientDataMapModel.Store.FK_Phone_ClientInfo_ClientId">
+            <End Role="ClientInfo" EntitySet="ClientInfo" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_PhoneType_PhoneTypeCode" Association="ClientDataMapModel.Store.FK_Phone_PhoneType_PhoneTypeCode">
+            <End Role="PhoneType" EntitySet="PhoneType" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ClientAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OasisAddressId" Type="varchar" MaxLength="20" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="AddressSeqNum" Type="int" Nullable="false" />
+          <Property Name="AddressTypeCode" Type="char" Nullable="false" MaxLength="4" />
+          <Property Name="FormatCode" Type="char" Nullable="false" MaxLength="4" />
+          <Property Name="CassCode" Type="char" MaxLength="1" />
+          <Property Name="EffectiveDate" Type="date" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" Nullable="false" />
+          <Property Name="Line1" Type="varchar" MaxLength="45" />
+          <Property Name="Line2" Type="varchar" MaxLength="45" />
+          <Property Name="CityName" Type="varchar" MaxLength="30" />
+          <Property Name="StateCode" Type="char" MaxLength="2" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="13" />
+          <Property Name="CountryCode" Type="char" MaxLength="4" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="DeliveryPointBarcode" Type="char" MaxLength="3" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="GeographicalPrecisionCode" Type="varchar" MaxLength="4" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" />
+          <Property Name="AccuracyCode" Type="varchar" MaxLength="4" />
+          <Property Name="TerminalId" Type="varchar" MaxLength="8" />
+          <Property Name="TechnicalObjectKey" Type="varchar" MaxLength="20" />
+          <Property Name="LastModifiedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+          </EntityType>
+        <EntityType Name="ClientInfo">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OasisClientId" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="EffectiveDate" Type="date" Nullable="false" />
+          <Property Name="PrimarySubtypeCode" Type="char" MaxLength="4" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="NamePrefixCode" Type="char" MaxLength="4" />
+          <Property Name="NameSuffixCode" Type="char" MaxLength="4" />
+          <Property Name="LegalEntityCode" Type="char" MaxLength="2" />
+          <Property Name="OriginalInceptionDate" Type="date" />
+          <Property Name="IndividualDateOfBirth" Type="date" />
+          <Property Name="PrimaryLanguageCode" Type="char" MaxLength="3" />
+          <Property Name="UserId" Type="varchar" MaxLength="8" />
+          <Property Name="TerminalId" Type="varchar" MaxLength="8" />
+          <Property Name="ExpirationDate" Type="date" Nullable="false" />
+          <Property Name="StatutoryTitleCode" Type="char" MaxLength="3" />
+          <Property Name="CanSendMarketingMaterials" Type="bit" />
+          <Property Name="IsClientBirthDateEstimated" Type="bit" />
+          <Property Name="IsAutoORCycleCustomer" Type="bit" />
+          <Property Name="IsClaimantRelationshipExists" Type="bit" />
+          <Property Name="LastModifiedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="PhoneId" />
+          </Key>
+          <Property Name="PhoneId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="PhoneSeqNum" Type="tinyint" Nullable="false" />
+          <Property Name="EffectiveDate" Type="date" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" Nullable="false" />
+          <Property Name="AreaCode" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="7" />
+          <Property Name="Extension" Type="varchar" MaxLength="8" />
+          <Property Name="PhoneTypeCode" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="TerminalId" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="LastModifiedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AddressType">
+          <Key>
+            <PropertyRef Name="AddressTypeCode" />
+          </Key>
+          <Property Name="AddressTypeCode" Type="char" Nullable="false" MaxLength="4" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="LastModifiedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="PhoneTypeCode" />
+          </Key>
+          <Property Name="PhoneTypeCode" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="LastModifiedBy" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClientAddress_AddressType_AddressTypeCode">
+          <End Role="AddressType" Type="ClientDataMapModel.Store.AddressType" Multiplicity="1" />
+          <End Role="ClientAddress" Type="ClientDataMapModel.Store.ClientAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressType">
+              <PropertyRef Name="AddressTypeCode" />
+            </Principal>
+            <Dependent Role="ClientAddress">
+              <PropertyRef Name="AddressTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientAddress_ClientInfo_ClientId">
+          <End Role="ClientInfo" Type="ClientDataMapModel.Store.ClientInfo" Multiplicity="1" />
+          <End Role="ClientAddress" Type="ClientDataMapModel.Store.ClientAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInfo">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientAddress">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_ClientInfo_ClientId">
+          <End Role="ClientInfo" Type="ClientDataMapModel.Store.ClientInfo" Multiplicity="1" />
+          <End Role="Phone" Type="ClientDataMapModel.Store.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInfo">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_PhoneType_PhoneTypeCode">
+          <End Role="PhoneType" Type="ClientDataMapModel.Store.PhoneType" Multiplicity="1" />
+          <End Role="Phone" Type="ClientDataMapModel.Store.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="PhoneTypeCode" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="PhoneTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientDataMapModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ClientDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientAddresses" EntityType="ClientDataMapModel.ClientAddress" />
+          <EntitySet Name="ClientInfoes" EntityType="ClientDataMapModel.ClientInfo" />
+          <EntitySet Name="Phones" EntityType="ClientDataMapModel.Phone" />
+          <EntitySet Name="AddressTypes" EntityType="ClientDataMapModel.AddressType" />
+          <EntitySet Name="PhoneTypes" EntityType="ClientDataMapModel.PhoneType" />
+          <AssociationSet Name="FK_ClientAddress_AddressType_AddressTypeCode" Association="ClientDataMapModel.FK_ClientAddress_AddressType_AddressTypeCode">
+            <End Role="AddressType" EntitySet="AddressTypes" />
+            <End Role="ClientAddress" EntitySet="ClientAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientAddress_ClientInfo_ClientId" Association="ClientDataMapModel.FK_ClientAddress_ClientInfo_ClientId">
+            <End Role="ClientInfo" EntitySet="ClientInfoes" />
+            <End Role="ClientAddress" EntitySet="ClientAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_ClientInfo_ClientId" Association="ClientDataMapModel.FK_Phone_ClientInfo_ClientId">
+            <End Role="ClientInfo" EntitySet="ClientInfoes" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_PhoneType_PhoneTypeCode" Association="ClientDataMapModel.FK_Phone_PhoneType_PhoneTypeCode">
+            <End Role="PhoneType" EntitySet="PhoneTypes" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ClientAddress">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OasisAddressId" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="AddressSeqNum" Type="Int32" Nullable="false" />
+          <Property Name="AddressTypeCode" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="FormatCode" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="CassCode" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="Line1" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="Line2" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="CityName" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="StateCode" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="DeliveryPointBarcode" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="GeographicalPrecisionCode" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AccuracyCode" Type="String" MaxLength="4" Unicode="false" FixedLength="false" />
+          <Property Name="TerminalId" Type="String" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="TechnicalObjectKey" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="AddressType" Relationship="ClientDataMapModel.FK_ClientAddress_AddressType_AddressTypeCode" FromRole="ClientAddress" ToRole="AddressType" />
+          <NavigationProperty Name="ClientInfo" Relationship="ClientDataMapModel.FK_ClientAddress_ClientInfo_ClientId" FromRole="ClientAddress" ToRole="ClientInfo" />
+        </EntityType>
+        <EntityType Name="ClientInfo">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OasisClientId" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="PrimarySubtypeCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="NamePrefixCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="NameSuffixCode" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="LegalEntityCode" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="OriginalInceptionDate" Type="DateTime" />
+          <Property Name="IndividualDateOfBirth" Type="DateTime" />
+          <Property Name="PrimaryLanguageCode" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="UserId" Type="String" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="TerminalId" Type="String" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="StatutoryTitleCode" Type="String" MaxLength="3" Unicode="false" FixedLength="true" />
+          <Property Name="CanSendMarketingMaterials" Type="Boolean" />
+          <Property Name="IsClientBirthDateEstimated" Type="Boolean" />
+          <Property Name="IsAutoORCycleCustomer" Type="Boolean" />
+          <Property Name="IsClaimantRelationshipExists" Type="Boolean" />
+          <Property Name="LastModifiedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ClientAddresses" Relationship="ClientDataMapModel.FK_ClientAddress_ClientInfo_ClientId" FromRole="ClientInfo" ToRole="ClientAddress" />
+          <NavigationProperty Name="Phones" Relationship="ClientDataMapModel.FK_Phone_ClientInfo_ClientId" FromRole="ClientInfo" ToRole="Phone" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="PhoneId" />
+          </Key>
+          <Property Name="PhoneId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="PhoneSeqNum" Type="Byte" Nullable="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" />
+          <Property Name="AreaCode" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="7" Unicode="false" FixedLength="false" />
+          <Property Name="Extension" Type="String" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneTypeCode" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="TerminalId" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ClientInfo" Relationship="ClientDataMapModel.FK_Phone_ClientInfo_ClientId" FromRole="Phone" ToRole="ClientInfo" />
+          <NavigationProperty Name="PhoneType" Relationship="ClientDataMapModel.FK_Phone_PhoneType_PhoneTypeCode" FromRole="Phone" ToRole="PhoneType" />
+        </EntityType>
+        <EntityType Name="AddressType">
+          <Key>
+            <PropertyRef Name="AddressTypeCode" />
+          </Key>
+          <Property Name="AddressTypeCode" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ClientAddresses" Relationship="ClientDataMapModel.FK_ClientAddress_AddressType_AddressTypeCode" FromRole="AddressType" ToRole="ClientAddress" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="PhoneTypeCode" />
+          </Key>
+          <Property Name="PhoneTypeCode" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedBy" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Phones" Relationship="ClientDataMapModel.FK_Phone_PhoneType_PhoneTypeCode" FromRole="PhoneType" ToRole="Phone" />
+        </EntityType>
+        <Association Name="FK_ClientAddress_AddressType_AddressTypeCode">
+          <End Role="AddressType" Type="ClientDataMapModel.AddressType" Multiplicity="1" />
+          <End Role="ClientAddress" Type="ClientDataMapModel.ClientAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressType">
+              <PropertyRef Name="AddressTypeCode" />
+            </Principal>
+            <Dependent Role="ClientAddress">
+              <PropertyRef Name="AddressTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientAddress_ClientInfo_ClientId">
+          <End Role="ClientInfo" Type="ClientDataMapModel.ClientInfo" Multiplicity="1" />
+          <End Role="ClientAddress" Type="ClientDataMapModel.ClientAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInfo">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientAddress">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_ClientInfo_ClientId">
+          <End Role="ClientInfo" Type="ClientDataMapModel.ClientInfo" Multiplicity="1" />
+          <End Role="Phone" Type="ClientDataMapModel.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientInfo">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_PhoneType_PhoneTypeCode">
+          <End Role="PhoneType" Type="ClientDataMapModel.PhoneType" Multiplicity="1" />
+          <End Role="Phone" Type="ClientDataMapModel.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="PhoneTypeCode" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="PhoneTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientDataMapModelStoreContainer" CdmEntityContainer="ClientDBContext">
+          <EntitySetMapping Name="ClientAddresses"><EntityTypeMapping TypeName="ClientDataMapModel.ClientAddress"><MappingFragment StoreEntitySet="ClientAddress">
+            <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+            <ScalarProperty Name="OasisAddressId" ColumnName="OasisAddressId" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="AddressSeqNum" ColumnName="AddressSeqNum" />
+            <ScalarProperty Name="AddressTypeCode" ColumnName="AddressTypeCode" />
+            <ScalarProperty Name="FormatCode" ColumnName="FormatCode" />
+            <ScalarProperty Name="CassCode" ColumnName="CassCode" />
+            <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+            <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+            <ScalarProperty Name="Line1" ColumnName="Line1" />
+            <ScalarProperty Name="Line2" ColumnName="Line2" />
+            <ScalarProperty Name="CityName" ColumnName="CityName" />
+            <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+            <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+            <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+            <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+            <ScalarProperty Name="DeliveryPointBarcode" ColumnName="DeliveryPointBarcode" />
+            <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+            <ScalarProperty Name="GeographicalPrecisionCode" ColumnName="GeographicalPrecisionCode" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="AccuracyCode" ColumnName="AccuracyCode" />
+            <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+            <ScalarProperty Name="TechnicalObjectKey" ColumnName="TechnicalObjectKey" />
+            <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ClientInfoes"><EntityTypeMapping TypeName="ClientDataMapModel.ClientInfo"><MappingFragment StoreEntitySet="ClientInfo">
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="OasisClientId" ColumnName="OasisClientId" />
+            <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+            <ScalarProperty Name="PrimarySubtypeCode" ColumnName="PrimarySubtypeCode" />
+            <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+            <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+            <ScalarProperty Name="LastName" ColumnName="LastName" />
+            <ScalarProperty Name="NamePrefixCode" ColumnName="NamePrefixCode" />
+            <ScalarProperty Name="NameSuffixCode" ColumnName="NameSuffixCode" />
+            <ScalarProperty Name="LegalEntityCode" ColumnName="LegalEntityCode" />
+            <ScalarProperty Name="OriginalInceptionDate" ColumnName="OriginalInceptionDate" />
+            <ScalarProperty Name="IndividualDateOfBirth" ColumnName="IndividualDateOfBirth" />
+            <ScalarProperty Name="PrimaryLanguageCode" ColumnName="PrimaryLanguageCode" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+            <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+            <ScalarProperty Name="StatutoryTitleCode" ColumnName="StatutoryTitleCode" />
+            <ScalarProperty Name="CanSendMarketingMaterials" ColumnName="CanSendMarketingMaterials" />
+            <ScalarProperty Name="IsClientBirthDateEstimated" ColumnName="IsClientBirthDateEstimated" />
+            <ScalarProperty Name="IsAutoORCycleCustomer" ColumnName="IsAutoORCycleCustomer" />
+            <ScalarProperty Name="IsClaimantRelationshipExists" ColumnName="IsClaimantRelationshipExists" />
+            <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Phones"><EntityTypeMapping TypeName="ClientDataMapModel.Phone"><MappingFragment StoreEntitySet="Phone">
+            <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
+            <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+            <ScalarProperty Name="PhoneSeqNum" ColumnName="PhoneSeqNum" />
+            <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+            <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+            <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
+            <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+            <ScalarProperty Name="Extension" ColumnName="Extension" />
+            <ScalarProperty Name="PhoneTypeCode" ColumnName="PhoneTypeCode" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="TerminalId" ColumnName="TerminalId" />
+            <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AddressTypes"><EntityTypeMapping TypeName="ClientDataMapModel.AddressType"><MappingFragment StoreEntitySet="AddressType">
+            <ScalarProperty Name="AddressTypeCode" ColumnName="AddressTypeCode" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PhoneTypes"><EntityTypeMapping TypeName="ClientDataMapModel.PhoneType"><MappingFragment StoreEntitySet="PhoneType">
+            <ScalarProperty Name="PhoneTypeCode" ColumnName="PhoneTypeCode" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ClientMap">
+        <EntityTypeShape EntityType="ClientDataMapModel.ClientAddress" Width="1.5" PointX="2.5" PointY="1.125" Height="6.2109179687499987" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientDataMapModel.ClientInfo" Width="1.5" PointX="4.375" PointY="1" Height="5.8263151041666648" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientDataMapModel.Phone" Width="1.5" PointX="6.5" PointY="1" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientDataMapModel.AddressType" Width="1.5" PointX="0.5" PointY="1" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClientDataMapModel.PhoneType" Width="1.5" PointX="8.5" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="ClientDataMapModel.FK_ClientAddress_AddressType_AddressTypeCode" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="2.0526432291666672" />
+          <ConnectorPoint PointX="2.5" PointY="2.0526432291666672" />
+        </AssociationConnector>
+        <AssociationConnector Association="ClientDataMapModel.FK_ClientAddress_ClientInfo_ClientId" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.375" PointY="3.9756575520833333" />
+          <ConnectorPoint PointX="4" PointY="3.9756575520833333" />
+        </AssociationConnector>
+        <AssociationConnector Association="ClientDataMapModel.FK_Phone_ClientInfo_ClientId" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.875" PointY="2.951650390625" />
+          <ConnectorPoint PointX="6.5" PointY="2.951650390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="ClientDataMapModel.FK_Phone_PhoneType_PhoneTypeCode" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.5" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="8" PointY="2.2401432291666667" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
